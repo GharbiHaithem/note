@@ -1,0 +1,9 @@
+button, [type='button'], [type='reset'], [type='submit'] {
+    -webkit-appearance: button;
+    /* background-color: transparent; */
+    /* background-image: none; */
+}
+.dropdown-toggle::after {
+    display: none;
+  
+}

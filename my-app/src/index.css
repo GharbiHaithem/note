@@ -1,0 +1,19 @@
+/* Import Tailwind CSS components and utilities first */
+@tailwind components;
+@tailwind utilities;
+
+/* Import des polices après les instructions Tailwind */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* Vos autres styles CSS ici */
+
+
+body{
+    font-family: 'Poppins', sans-serif;
+    height: max-content;
+    overflow-y: scroll;
+    background: #f8f9fb;
+}
+.cvcv{
+    border: none !important;
+  }
