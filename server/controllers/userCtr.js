@@ -1,6 +1,6 @@
 const User = require('../models/user')
 const {generateToken}  = require('../config/generateToken')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const userCtrl = {
     saveOrLoginUser: async (req, res) => {
         const data = {
