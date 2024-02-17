@@ -1,7 +1,8 @@
 import axios from 'axios'
-import { base_url } from '../utils/base_url';
 
-const API = axios.create({baseURL:base_url});
+
+const VITE_PUBLIC_URL   =import.meta.env.VITE_API_URL
+const API = axios.create({baseURL:VITE_PUBLIC_URL});
 API.interceptors.request.use((req)=>{
    if(localStorage.getItem('customer')){
     req.headers.authorization =`Bearer ${
@@ -12,13 +13,13 @@ API.interceptors.request.use((req)=>{
 })
 const createcat = async(categoryData) =>{
     console.log(categoryData);
-    const response = await API.post(`${base_url}/create-cat`,categoryData)
+    const response = await API.post(`${VITE_PUBLIC_URL}/create-cat`,categoryData)
     console.log(response);
     return await response.data
 }
 const categories = async() =>{
     
-    const response = await API.get(`${base_url}/categories`)
+    const response = await API.get(`${VITE_PUBLIC_URL}/categories`)
     console.log(response);
     return await response.data
 }

@@ -10,7 +10,7 @@ import Home from './Page/Home';
 import { useEffect, useState } from 'react';
 import ModalAddRecette from './Component/ModalAddRecette';
 import ModalAddCategory from './Component/ModalAddCategory';
-import  PrivateRoute  from './routes/privateRoute';
+import  {PrivateRoute}  from './routes/privateRoute';
 
 // import { useSelector } from 'react-redux';
 function App() {

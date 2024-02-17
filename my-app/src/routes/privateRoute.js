@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Navigate, useNavigate } from 'react-router-dom';
-
-const PrivateRoute = ({ children }) => {
+export const PrivateRoute = ({ children }) => {
   const navigate = useNavigate();
   const getTokenFromStorage = localStorage.getItem('customer') && JSON.parse(localStorage.getItem('customer'));
 
@@ -14,9 +13,7 @@ const PrivateRoute = ({ children }) => {
 
   return getTokenFromStorage?.token !== undefined ? children : null;
 };
-
 PrivateRoute.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
-export default PrivateRoute; // Export par défaut ici
+   children: PropTypes.node.isRequired,
+ };
+ 

@@ -1,7 +1,9 @@
 import axios from 'axios'
-import { base_url } from '../utils/base_url';
 
-const API = axios.create({baseURL:base_url});
+
+// eslint-disable-next-line no-undef
+const VITE_PUBLIC_URL   =import.meta.env.VITE_API_URL
+const API = axios.create({baseURL:VITE_PUBLIC_URL});
 API.interceptors.request.use((req)=>{
    if(localStorage.getItem('customer')){
     req.headers.authorization =`Bearer ${
@@ -12,13 +14,13 @@ API.interceptors.request.use((req)=>{
 })
 const createRecette = async(recetteData) =>{
     console.log(recetteData);
-    const response = await API.post(`${base_url}/create-recette`,recetteData)
+    const response = await API.post(`${VITE_PUBLIC_URL}/create-recette`,recetteData)
     console.log(response);
     return await response.data
 }
 const recettes = async() =>{
   
-    const response = await API.get(`${base_url}/recettes`)
+    const response = await API.get(`${VITE_PUBLIC_URL}/recettes`)
     console.log(response);
     return await response.data
 }
