@@ -12,7 +12,7 @@ const recetteRoute = require('./routers/recette.route')
 
 const app = express()
 app.use(cors({
-    origin:"https://note-3y2u3zi93-gharbihaithem.vercel.app",
+    origin:"https://note-three-kappa.vercel.app",
    
     credentials:true
 }))
