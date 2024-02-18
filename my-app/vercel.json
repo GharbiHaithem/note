@@ -1,13 +1,6 @@
 {
-  "version": 2,
-  "builds": [
-    {"src": "*.js", "use": "@vercel/node"}
-  ],
   "routes": [
-    {
-      "src": "*/(.*)*",
-      "status": 307,
-      "dest": "/"
-    }
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
