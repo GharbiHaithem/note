@@ -1,8 +1,7 @@
 import axios from 'axios'
 
 
-// eslint-disable-next-line no-undef
-const VITE_PUBLIC_URL   =import.meta.env.VITE_API_URL
+const VITE_PUBLIC_URL   ="https://server-n.onrender.com"
 const API = axios.create({baseURL:VITE_PUBLIC_URL});
 API.interceptors.request.use((req)=>{
    if(localStorage.getItem('customer')){

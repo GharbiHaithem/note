@@ -1,9 +1,7 @@
 import axios from 'axios'
-import { base_url } from '../utils/base_url';
 
-
-const VITE_PUBLIC_URL   =import.meta.env.VITE_API_URL
-const API = axios.create({baseURL:base_url});
+const VITE_PUBLIC_URL   ="https://server-n.onrender.com"
+const API = axios.create({baseURL:VITE_PUBLIC_URL});
 API.interceptors.request.use((req)=>{
    if(localStorage.getItem('customer')){
     req.headers.authorization =`Bearer ${
@@ -14,12 +12,12 @@ API.interceptors.request.use((req)=>{
 })
 const createuser = async(userData) =>{
     console.log(userData);
-    const response = await axios.post(`${VITE_PUBLIC_URL}/saveuser`,userData)
+    const response = await axios.post(`https://server-n.onrender.com/saveuser`,userData)
     console.log(response);
     return await response.data
 }
 const login = async(user)=>{
-    const response = await API.post(`${VITE_PUBLIC_URL}/login`,user)
+    const response = await API.post(`https://server-n.onrender.com/login`,user)
     console.log(response.data)
    
     if(response.data.message !=="" && response.data.token !==undefined){
@@ -30,36 +28,36 @@ const login = async(user)=>{
    
 }
 const getUser = async(id)=>{
-   const response = await API.get(`${VITE_PUBLIC_URL}/user/${id}`)
+   const response = await API.get(`${VITE_PUBLIC_URL}/${id}`)
    console.log(response.data)
    return await response.data
   
 }
 
  const forgotPassword = async(mail)=>{
-    const response = await API.post(`${VITE_PUBLIC_URL}/forgot-password`,mail)
+    const response = await API.post(`https://server-n.onrender.com/forgot-password`,mail)
     return await response.data
  }
 
  const updateUser = async(data)=>{
    console.log(data)
-    const response = await API.put(`${VITE_PUBLIC_URL}/user-update`,data)
+    const response = await API.put(`https://server-n.onrender.com/user-update`,data)
     return await response.data 
  }
  const updateSimpleUser = async(data)=>{
    console.log(data)
-    const response = await API.put(`${VITE_PUBLIC_URL}/update-simple-user/${data.id}`,data.dataUser)
+    const response = await API.put(`https://server-n.onrender.com/update-simple-user/${data.id}`,data.dataUser)
     return await response.data 
  }
  const resetpassword = async(data)=>{
     console.log(data)
-    const response = await API.post(`${VITE_PUBLIC_URL}/reset-password/${data.token}`,{password:data.dataUser})
+    const response = await API.post(`https://server-n.onrender.com/reset-password/${data.token}`,{password:data.dataUser})
     return await response.data
  }
 
 const getusers = async()=>{
     
-    const response = await API.get(`${VITE_PUBLIC_URL}/users`)
+    const response = await API.get(`https://server-n.onrender.com/users`)
     console.log(response.data )
     return await response.data
  }
@@ -67,12 +65,12 @@ const getusers = async()=>{
 
 const createCode = async(data)=>{
    console.log(data)
-   const response = await API.post(`${VITE_PUBLIC_URL}/auth2f`,data)
+   const response = await API.post(`https://server-n.onrender.com/auth2f`,data)
    return response.data
 }
 const verification2f = async(data)=>{
    console.log(data)
-   const response = await API.post(`${VITE_PUBLIC_URL}/verif2f`,data)
+   const response = await API.post(`https://server-n.onrender.com/verif2f`,data)
 
       console.log(response)
       localStorage.setItem('customer',JSON.stringify(response.data))
@@ -80,22 +78,22 @@ const verification2f = async(data)=>{
 }
 const verifyPassword = async(data)=>{
    console.log(data)
-   const response = await API.post(`${VITE_PUBLIC_URL}/verify-password`,data)
+   const response = await API.post(`https://server-n.onrender.com/verify-password`,data)
    return response.data
 }
 const deleteUser = async(id)=>{
    console.log(id)
-   const response = await API.delete(`${VITE_PUBLIC_URL}/delete-user/${id}`)
+   const response = await API.delete(`https://server-n.onrender.com/delete-user/${id}`)
    return response.data
 }
 
 const activateDesactivateAccountUser = async(id)=>{
    console.log(id)
-   const response = await API.post(`${VITE_PUBLIC_URL}/activate-desactivate-account/${id}`)
+   const response = await API.post(`https://server-n.onrender.com/activate-desactivate-account/${id}`)
    return response.data
 }
 const searchUser = async (query)=>{
-   const response = await API.get(`${VITE_PUBLIC_URL}/search?searchQuery=${query}`)
+   const response = await API.get(`https://server-n.onrender.com/search?searchQuery=${query}`)
    return await response.data
 }
 const authServices = {
