@@ -12,12 +12,12 @@ API.interceptors.request.use((req)=>{
 })
 const createuser = async(userData) =>{
     console.log(userData);
-    const response = await axios.post(`https://server-n.onrender.com/saveuser`,userData)
+    const response = await axios.post(`https://server-n.onrender.com/api/saveuser`,userData)
     console.log(response);
     return await response.data
 }
 const login = async(user)=>{
-    const response = await API.post(`https://server-n.onrender.com/login`,user)
+    const response = await API.post(`https://server-n.onrender.com/api/login`,user)
     console.log(response.data)
    
     if(response.data.message !=="" && response.data.token !==undefined){
@@ -35,29 +35,29 @@ const getUser = async(id)=>{
 }
 
  const forgotPassword = async(mail)=>{
-    const response = await API.post(`https://server-n.onrender.com/forgot-password`,mail)
+    const response = await API.post(`https://server-n.onrender.com/api/forgot-password`,mail)
     return await response.data
  }
 
  const updateUser = async(data)=>{
    console.log(data)
-    const response = await API.put(`https://server-n.onrender.com/user-update`,data)
+    const response = await API.put(`https://server-n.onrender.com//apiuser-update`,data)
     return await response.data 
  }
  const updateSimpleUser = async(data)=>{
    console.log(data)
-    const response = await API.put(`https://server-n.onrender.com/update-simple-user/${data.id}`,data.dataUser)
+    const response = await API.put(`https://server-n.onrender.com/api/update-simple-user/${data.id}`,data.dataUser)
     return await response.data 
  }
  const resetpassword = async(data)=>{
     console.log(data)
-    const response = await API.post(`https://server-n.onrender.com/reset-password/${data.token}`,{password:data.dataUser})
+    const response = await API.post(`https://server-n.onrender.com/api/reset-password/${data.token}`,{password:data.dataUser})
     return await response.data
  }
 
 const getusers = async()=>{
     
-    const response = await API.get(`https://server-n.onrender.com/users`)
+    const response = await API.get(`https://server-n.onrender.com/api/users`)
     console.log(response.data )
     return await response.data
  }
@@ -65,12 +65,12 @@ const getusers = async()=>{
 
 const createCode = async(data)=>{
    console.log(data)
-   const response = await API.post(`https://server-n.onrender.com/auth2f`,data)
+   const response = await API.post(`https://server-n.onrender.com/api/auth2f`,data)
    return response.data
 }
 const verification2f = async(data)=>{
    console.log(data)
-   const response = await API.post(`https://server-n.onrender.com/verif2f`,data)
+   const response = await API.post(`https://server-n.onrender.com/api/verif2f`,data)
 
       console.log(response)
       localStorage.setItem('customer',JSON.stringify(response.data))
@@ -78,22 +78,22 @@ const verification2f = async(data)=>{
 }
 const verifyPassword = async(data)=>{
    console.log(data)
-   const response = await API.post(`https://server-n.onrender.com/verify-password`,data)
+   const response = await API.post(`https://server-n.onrender.com/api/verify-password`,data)
    return response.data
 }
 const deleteUser = async(id)=>{
    console.log(id)
-   const response = await API.delete(`https://server-n.onrender.com/delete-user/${id}`)
+   const response = await API.delete(`https://server-n.onrender.com/api/delete-user/${id}`)
    return response.data
 }
 
 const activateDesactivateAccountUser = async(id)=>{
    console.log(id)
-   const response = await API.post(`https://server-n.onrender.com/activate-desactivate-account/${id}`)
+   const response = await API.post(`https://server-n.onrender.com/api/activate-desactivate-account/${id}`)
    return response.data
 }
 const searchUser = async (query)=>{
-   const response = await API.get(`https://server-n.onrender.com/search?searchQuery=${query}`)
+   const response = await API.get(`https://server-n.onrender.com/api/search?searchQuery=${query}`)
    return await response.data
 }
 const authServices = {
