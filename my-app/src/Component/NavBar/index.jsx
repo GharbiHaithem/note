@@ -61,7 +61,15 @@ const[activeSearch,setActiveSearch] = useState(false)
 const[query,setQuery] = useState('')
 useEffect(()=>{
   if(query){
-  dispatch(recettes(query))
+  
+    dispatch(recettes(query))
+ 
+  }
+},[query,dispatch])
+alert(query)
+useEffect(()=>{
+  if(query === ''){
+    dispatch(recettes(query))
   }
 },[query,dispatch])
   return (
