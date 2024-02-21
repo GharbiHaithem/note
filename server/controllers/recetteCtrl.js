@@ -1,4 +1,6 @@
 const Recette = require('../models/recette')
+const Category = require('../models/Category')
+
 const recetteCtrl = {
     createRecette: async(req,res)=>{
         try {
@@ -28,23 +30,54 @@ const recetteCtrl = {
             return res.status(500).json({message:error.message})
         }
     },
-
     allRecettes: async (req, res) => {
         const { _id } = req.user;
+        const { searchQuery } = req.query;
     
         try {
             // Utilisez countDocuments pour obtenir le nombre total d'enregistrements
             const totalRecords = await Recette.countDocuments({ user: _id });
-         
-            // Utilisez find pour obtenir les recettes avec une limite
-            const recettes = await Recette.find({ user: _id }).populate("user category");
-  
-            // Retournez les données et le nombre total d'enregistrements
-            return res.status(201).json({ recettes, totalRecords });
+            let catId
+            if (searchQuery) {
+                const regex = new RegExp(searchQuery, 'i'); // 'i' pour une correspondance insensible à la casse
+                const recettescat = await Category.find({
+                    $and: [
+                        { titleCategory: regex ,
+                            user:_id
+                        },
+                       
+                      
+                    ],
+                })
+                if(recettescat && recettescat.length >0 ){
+                     catId = recettescat[0]._id
+                    console.log({categ:catId})
+                }
+                
+                const recettes = await Recette.find({
+                    $and: [
+                        { $or: [
+                            { title: regex },
+                            { category: catId }
+                        ] },
+                        { user: _id }
+                    ]
+                });
+                
+                console.log({recettes})
+                return res.json({recettes});
+            } else {
+                const recettes = await Recette.find({ user: _id }).populate("user category");
+                return res.status(201).json({ recettes, totalRecords });
+            }
         } catch (error) {
             return res.status(500).json({ message: error.message });
         }
-    },
+    },    
+    
+
+    
+    
     updateRecette:async(req,res)=>{
         const { id } = req.params
        
@@ -65,4 +98,7 @@ const recetteCtrl = {
     
     
 } 
+function escapeRegExp(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
 module.exports = recetteCtrl
