@@ -9,7 +9,7 @@ const fs = require('fs');
 const userRoute = require('./routers/user.route')
 const categoryRoute = require('./routers/category.route')
 const recetteRoute = require('./routers/recette.route')
-
+const uploadRoute = require('./routers/upload.route')
 const app = express()
 app.use(cors({
     origin:"*",
@@ -35,7 +35,7 @@ mongoose.connect(
 app.use("/api" ,userRoute)
 app.use("/api" ,categoryRoute)
 app.use("/api" ,recetteRoute)
-
+app.use("/api",uploadRoute)
 app.listen(PORT, ()=>{
     console.log(`server is running at PORT ${PORT}`)
 }) 

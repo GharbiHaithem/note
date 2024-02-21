@@ -9,6 +9,10 @@ const recetteSchema =new mongoose.Schema({
     required:true
 
  },
+ images:[{
+   public_id:String,
+   url:String
+}],
  user:{type:mongoose.Schema.Types.ObjectId,ref:'User'},
  category:{
     type:mongoose.Schema.Types.ObjectId,ref:'Category'
