@@ -17,7 +17,7 @@ const createuser = async(userData) =>{
     return await response.data
 }
 const login = async(user)=>{
-    const response = await API.post(`http://localhost:5000/api/login`,user)
+    const response = await API.post(`${VITE_PUBLIC_URL}/api/login`,user)
     console.log(response.data)
    
     if(response.data.message !=="" && response.data.token !==undefined){
@@ -28,7 +28,7 @@ const login = async(user)=>{
    
 }
 const getUser = async(id)=>{
-   const response = await API.get(`${VITE_PUBLIC_URL}/${id}`)
+   const response = await API.get(`${VITE_PUBLIC_URL}/api/${id}`)
    console.log(response.data)
    return await response.data
   

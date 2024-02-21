@@ -26,7 +26,7 @@ return response.data
 
 
 const deleteImages = async(id)=>{
-const response = await API.delete(`${VITE_PUBLIC_URL}/delete-img/${id}`)
+const response = await API.delete(`${VITE_PUBLIC_URL}/api/delete-img/${id}`)
 console.log(response)
 return response.data
 }

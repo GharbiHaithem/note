@@ -13,13 +13,13 @@ API.interceptors.request.use((req)=>{
 })
 const createcat = async(categoryData) =>{
     console.log(categoryData);
-    const response = await API.post(`${VITE_PUBLIC_URL}/create-cat`,categoryData)
+    const response = await API.post(`${VITE_PUBLIC_URL}/api/create-cat`,categoryData)
     console.log(response);
     return await response.data
 }
 const categories = async() =>{
     
-    const response = await API.get(`${VITE_PUBLIC_URL}/categories`)
+    const response = await API.get(`${VITE_PUBLIC_URL}/api/categories`)
     console.log(response);
     return await response.data
 }
