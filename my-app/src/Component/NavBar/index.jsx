@@ -8,8 +8,8 @@ import PlusOneIcon from '@mui/icons-material/PlusOne';
 import './style.css'
 import { useDispatch, useSelector } from 'react-redux';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
-
-import { logOut } from '../../features/recetteSlice';
+import { CiSearch } from "react-icons/ci";
+import { logOut, recettes } from '../../features/recetteSlice';
 const NavBar = ({setDarkMode,darkMode,showModal,setShowModal}) => {
 
   useEffect(() => {
@@ -57,9 +57,16 @@ useEffect(() => {
   };
 }, []);
 console.log(colorStorage)
+const[activeSearch,setActiveSearch] = useState(false)
+const[query,setQuery] = useState('')
+useEffect(()=>{
+  if(query){
+  dispatch(recettes(query))
+  }
+},[query,dispatch])
   return (
     <div className={`h-[80px] ring-indigo-600  shadow-lg flex items-center fixed top-0 left-0 w-[100%] z-50 justify-between ${darkMode ? 'border-slate-50 bg-dark border-b-2' : 'bg-white'}`}>
-      <div className=' h-full bbb mb-0 mx-3 font-black text-6xl w-[300px] flex justify-between  items-center ' style={{  backgroundClip: "text",
+   <div className=' h-full bbb mb-0 mx-3 font-black text-xl md:text-6xl w-[300px] flex justify-between  items-center ' style={{  backgroundClip: "text",
     color: "transparent",
     backgroundImage: `linear-gradient(70deg, #b2cceb, #557B83)`,
 
@@ -70,7 +77,13 @@ console.log(colorStorage)
         
       </div>
      <div className='flex items-center gap-[20px] mx-[20px]'>
-     <div className={`h-[50px] w-[50px] rounded-full shadow-lg flex justify-center items-center ${darkMode ? 'border-2 border-slate-100' : ''}`}>
+      {activeSearch && <div className='flex'>
+        <input type='text' onChange={(e)=>{
+          setQuery(e.target.value)
+        
+       }}  className='flex-1 p-1 h-[40px] bg-blue-100' id="votreChamp" autoComplete="off" placeholder='search ...'  name='search' />
+        </div>}
+     {!activeSearch &&   <div className={`h-[50px] w-[50px] rounded-full shadow-lg flex justify-center items-center ${darkMode ? 'border-2 border-slate-100' : ''}`}>
      <div className="dropdown">
   <span className={`${darkMode ? 'text-slate-50' : 'text-dark'} dropdown-toggle`} type="button" data-bs-toggle="dropdown" aria-expanded="false">
     {user !== undefined && user !== null && Object.keys(user).length > 0 &&   user?.firstname[0] + user?.lastname[0]  }
@@ -85,16 +98,20 @@ console.log(colorStorage)
   }}><a className="dropdown-item flex items-center gap-2" href="#"><LogoutOutlinedIcon style={{fontSize: 'medium'}} />sign out</a></li>
   </ul>
 </div>
-     </div>
+     </div>}
 
-     <div>
+     {!activeSearch &&   <div>
         <span className=' border-2 w-full flex items-center justify-center cursor-pointer h-full  rounded-full shadow-2xl font-sans mb-0 p-[10px]' onClick={()=>setShowModal(!showModal)}>
 <PlusOneIcon/>
         </span>
-      </div>
-     <div className={` border-2 mr-[5px] rounded-full shadow-2xl font-sans mb-0 p-[10px] ${darkMode ? 'bg-dark' : 'bg-gray-100' } cursor-pointer`} onClick={toggleDarkMode}>
+      </div>}
+      {!activeSearch &&   <div className={` border-2 mr-[5px] rounded-full shadow-2xl font-sans mb-0 p-[10px] ${darkMode ? 'bg-dark' : 'bg-gray-100' } cursor-pointer`} onClick={toggleDarkMode}>
    {darkMode ?  <WbIncandescentOutlinedIcon className='text-white bg-dark'/> : <Brightness6OutlinedIcon />
 } 
+      </div>}
+      <div onClick={()=>setActiveSearch(!activeSearch)} className={` border-2 mr-[5px] rounded-full shadow-2xl font-sans mb-0 p-[10px]  ${darkMode ? 'bg-dark' : 'bg-gray-100' } cursor-pointer`}>
+      <CiSearch style={{fontSize:'20px'}} />
+     
       </div>
    
      </div>

@@ -20,9 +20,9 @@ export const registreRecette = createAsyncThunk('/create/recette',async(data,thu
       return thunkAPI.rejectWithValue(error)  
     }
 })
-export const recettes = createAsyncThunk('/recette',async(thunkAPI)=>{
+export const recettes = createAsyncThunk('/recette',async(searchQuery,thunkAPI)=>{
     try {
-       return await crecetteservice.recettes()  
+       return await crecetteservice.recettes(searchQuery)  
     } catch (error) {
       return thunkAPI.rejectWithValue(error)  
     }
