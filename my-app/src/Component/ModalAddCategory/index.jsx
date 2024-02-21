@@ -22,7 +22,7 @@ const ModalAddCategory = ({darkMode,setShowModalCat,showModalCat}) => {
       validationSchema:categorySchema,
        onSubmit:(values)=>{
       
-         alert(JSON.stringify(values,null,2))
+        
          dispatch(registreCat(values))
           formik.resetForm();
         setTimeout(()=>{

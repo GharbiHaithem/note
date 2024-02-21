@@ -66,7 +66,7 @@ useEffect(()=>{
  
   }
 },[query,dispatch])
-alert(query)
+
 useEffect(()=>{
   if(query === ''){
     dispatch(recettes(query))
