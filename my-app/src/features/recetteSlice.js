@@ -10,7 +10,8 @@ recettes:[],
 isSuccess:false,
 isError:false,
 isLoading:false,
-message:""
+message:"",
+totalRecords:0
 } 
 export const registreRecette = createAsyncThunk('/create/recette',async(data,thunkAPI)=>{
     try {
@@ -25,6 +26,13 @@ export const recettes = createAsyncThunk('/recette',async(thunkAPI)=>{
     } catch (error) {
       return thunkAPI.rejectWithValue(error)  
     }
+})
+export const editRecette = createAsyncThunk('/recette-edit',async(data,thunkAPI)=>{
+  try {
+     return await crecetteservice.editRecette(data)  
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error)  
+  }
 })
 export const logOut = createAction('/logout')
 export const resetMessage = createAction('/resetmessage') 
@@ -61,10 +69,12 @@ export const recetteSlice = createSlice({
        .addCase(recettes.fulfilled,(state,action)=>{
         state.isLoading=false
         state.isSuccess=true
-        state.recettes =  action.payload
+        state.recettes = action.payload.recettes
         console.log(action.payload)
         state.message = action.payload.message
         toast.success(action.payload.message)
+state.totalRecords = action.payload.totalRecords
+
        })
        .addCase(recettes.rejected,(state,action)=>{
         console.log(action.payload)
@@ -74,6 +84,34 @@ export const recetteSlice = createSlice({
         state.message=action.payload.response.data.message
         toast.error(action.payload.response.data.message)
        })  
+       .addCase(editRecette.pending,(state)=>{
+        state.isLoading=true
+        state.message=""
+       })
+       .addCase(editRecette.fulfilled,(state,action)=>{
+        state.isLoading=false
+        state.isSuccess=true
+        state.recetteEdited = action.payload
+        const updatedRecetteIndex = state.recettes.findIndex(
+          (recette) => recette._id === action.payload.updatedRecette._id
+        );
+        console.log(updatedRecetteIndex)
+        console.log(action.payload)
+        state.message = action.payload.message
+        toast.success(action.payload.messaqe)
+        if (updatedRecetteIndex !== -1) {
+          state.recettes[updatedRecetteIndex] = action.payload.updatedRecette;
+        }
+
+       })
+       .addCase(editRecette.rejected,(state,action)=>{
+        console.log(action.payload)
+        state.isLoading=false
+        state.isSuccess=false
+        state.isError=true
+        state.message=action.payload
+        toast.error(action.payload.response.data.message)
+       }) 
     }
 
 })

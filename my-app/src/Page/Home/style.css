@@ -16,10 +16,11 @@ body{
     font-family: "Poppins", sans-serif !important;
   }
 .bloc-1{
-    width: 200px;
-    height: 70px;
+    width: 70px;
+    height: 200px;
     border-radius: 5px;
     box-shadow:  0 0 10px #a8a5a5;
+    top: -200px;
 }
 .bloc-1-1{
     width: 50px;
@@ -46,5 +47,68 @@ body{
     --linear-gradient1: #439A97;
     --linear-gradient2: #557B83;
     
+  }
+
+  .mySwiper {
+    width: 100%;
+    height: 300px;
+  }
+  
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+  
+    /* Center slide text vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .card{
+   
+  }
+  .aaaa {
+    right: 10px !important;
+    top: 10px !important;
+    display: none;
+  }
+  
+  .cc:hover .aaaa {
+    display: block;
+  }
+  
+  .bb {
+    color: white;
+    display: none;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .parag:hover .bb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .parag:hover .txt{
+    color: white;
+    width: 100% !important;
+    height: 100% !important;
+  }
+ 
+  .vvv{
+   
+    width: 100%;
+    height: 100%;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
   }
   @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap')

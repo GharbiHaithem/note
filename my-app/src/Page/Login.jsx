@@ -69,7 +69,7 @@ const Login = () => {
      </div>
    
    
-      <p>Create An Account?<Link className='text-blue-700 underline font-semibold' to='/'>Signup now</Link></p>
+      <p>Create An Account?<Link className='text-blue-700 underline font-semibold' to='/signup'>Signup now</Link></p>
         <button type='submit' className='p-2 rounded-lg text-white bg-gradient-to-r from-blue-400 to-blue-100 w-[300px] mt-10 mb-4'>Login</button>
       
         

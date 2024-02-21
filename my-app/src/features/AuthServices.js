@@ -12,12 +12,12 @@ API.interceptors.request.use((req)=>{
 })
 const createuser = async(userData) =>{
     console.log(userData);
-    const response = await axios.post(`https://server-n.onrender.com/api/saveuser`,userData)
+    const response = await axios.post(`${VITE_PUBLIC_URL}/api/saveuser`,userData)
     console.log(response);
     return await response.data
 }
 const login = async(user)=>{
-    const response = await API.post(`https://server-n.onrender.com/api/login`,user)
+    const response = await API.post(`http://localhost:5000/api/login`,user)
     console.log(response.data)
    
     if(response.data.message !=="" && response.data.token !==undefined){

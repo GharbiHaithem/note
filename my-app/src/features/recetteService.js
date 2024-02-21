@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 
-const VITE_PUBLIC_URL   ="https://server-n.onrender.com/api"
+const VITE_PUBLIC_URL   ="https://server-n.onrender.com"
 const API = axios.create({baseURL:VITE_PUBLIC_URL});
 API.interceptors.request.use((req)=>{
    if(localStorage.getItem('customer')){
@@ -17,13 +17,20 @@ const createRecette = async(recetteData) =>{
     console.log(response);
     return await response.data
 }
-const recettes = async() =>{
-  
+const recettes = async(limit) =>{
+    console.log(limit);
     const response = await API.get(`${VITE_PUBLIC_URL}/recettes`)
-    console.log(response);
+   
+    return await response.data
+}
+
+const editRecette = async(data) =>{
+    console.log(data)
+    const response = await API.put(`${VITE_PUBLIC_URL}/edit/${data.id}`,{description:data.description,title:data.title})
+   
     return await response.data
 }
 const recetteServices = {
-    createRecette,recettes
+    createRecette,recettes,editRecette
 }
 export default recetteServices

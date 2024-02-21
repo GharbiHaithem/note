@@ -10,6 +10,9 @@ import { categories } from '../../features/categorySlice';
 import { useFormik } from 'formik';
 import * as yup from "yup"
 import { recettes, registreRecette } from '../../features/recetteSlice';
+import Dropzone from 'react-dropzone'
+import { deleteImg, upload } from '../../features/uploadSlice';
+import {MdOutlineCancel} from 'react-icons/md'
 const ModalAddRecette = ({darkMode,showModal,setShowModal,showModalCat,setShowModalCat}) => {
     const dispatch = useDispatch()
     useEffect(()=>{
@@ -28,7 +31,7 @@ const ModalAddRecette = ({darkMode,showModal,setShowModal,showModalCat,setShowMo
           title:'',
           description:'',
           category:'',
-         
+          images:'',
        },
        validationSchema:schema,
        onSubmit:(values)=>{
@@ -44,9 +47,27 @@ const ModalAddRecette = ({darkMode,showModal,setShowModal,showModalCat,setShowMo
      
        }
       })
-  
+
+      const uploadState = useSelector(state=>state.upload.images)
+      const img = [];
+      uploadState?.forEach(element => {
+      img.push({
+        public_id:element.public_id,
+        url:element.url
+      })    
+      })
+
+      useEffect(()=>{
+        formik.values.images=img;
+       
+        },[img])
+        const filterData = (fileId) =>{
+          alert(fileId)
+          dispatch(deleteImg(fileId))
+          uploadState && uploadState?.filter((result)=>result.public_id !== fileId)
+        }
   return (
-    <div className=' fixed top-0 left-0 bg-[#0008] w-[100%] h-[100%] backdrop-blur-[5px] '>
+    <div className=' fixed top-0 left-0 bg-[#0008] w-[100%] h-[100%] backdrop-blur-[5px] z-50 '>
         <form onClick={formik.handleSubmit} className={`w-[90%]   md:w-[60%] ${darkMode ? 'bg-dark opacity-65 text-white' : 'bg-slate-50'}    h-[500px] p-[20px] rounded-xl mx-auto mt-[150px] relative`}>
 <CancelIcon className='absolute top-0 right-0 font-extrabold cursor-pointer' onClick={()=>setShowModal(!showModal)} />
         <div>
@@ -66,14 +87,40 @@ const ModalAddRecette = ({darkMode,showModal,setShowModal,showModalCat,setShowMo
 <option key={c?._id} value={c?._id}>{c?.titleCategory}</option>
     ))
   }
-    
-  
+
   </select>
   {formik.touched.category &&  formik.errors.category && <span className="mt-2 p-[10px] inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">{formik.errors.category}</span>}
           
            </div>
   <span onClick={()=>setShowModalCat(!showModalCat)} className={`yy w-[20%] ${darkMode ? 'bg-slate-50 text-slate-900' : ''} mb-0 items-center border hover:border hover:border-slate-100 hover:rounded-lg hover:text-slate-100 border-slate-950 rounded-lg  text-xs font-light flex justify-center h-[40px] cursor-pointer`}><IoAdd  /> <span className="hidden sm:inline">ADD CATEGORY</span></span>
             </div>
+            <Dropzone onDrop={acceptedFiles => dispatch(upload(acceptedFiles))}  >
+  {({getRootProps, getInputProps}) => (
+    <section>
+      <div {...getRootProps()}>
+        <input {...getInputProps()} />
+        <p>Drag n drop some files here, or click to select files</p>
+      </div>
+    </section>
+  )}
+</Dropzone>
+<div className=''>
+         
+       
+  
+            {uploadState.map((i,j) => {
+              
+             return (
+                          <div key={j} className=' p-2 position-relative' style={{boxShadow:'0 0 10px #ddd'}} >
+              
+          <button type='button' onClick={()=>filterData((i.public_id))} className='position-absolute bg-transparant' style={{top:'10px',right:'10px',fontSize:'20px',border:'none',background:'white'}}><MdOutlineCancel style={{borderColor:'white',color:'black'}}/></button>
+         
+                <img src={i.url} alt={i.public_id}  style={{width:'200px',height:'150px'}} />
+              </div>
+             )
+            })}
+           </div>
+
             <ReactQuill theme="snow" className='mt-2 ' name='description' value={formik.values.description}  onChange={formik.handleChange('description')}  />
             {formik.touched.description &&  formik.errors.description && <span className="mt-2 p-[10px] inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">{formik.errors.description}</span>}
         </div>

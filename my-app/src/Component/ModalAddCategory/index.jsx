@@ -33,7 +33,7 @@ const ModalAddCategory = ({darkMode,setShowModalCat,showModalCat}) => {
        }
      })
   return (
-    <div className=' fixed top-0 left-0 bg-[#4e4b4b88] w-[100%] h-[100%] backdrop-blur-[5px]'>
+    <div className=' fixed top-[100px] left-0 bg-[#4e4b4b88] w-[100%] h-[100%] backdrop-blur-[5px] z-50'>
         <form onSubmit={formik.handleSubmit} className={`w-[90%] mt-[100px]  md:w-[60%] ${darkMode ? 'bg-dark text-slate-50' : 'bg-slate-50'}    h-[max-content] p-[20px] rounded-xl mx-auto mt-[50px] relative`}>
         <CancelIcon className='absolute top-0 right-0 font-extrabold cursor-pointer' onClick={()=>setShowModalCat(!showModalCat)} />
         <div>

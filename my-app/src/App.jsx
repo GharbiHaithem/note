@@ -41,6 +41,7 @@ const[showModalCat,setShowModalCat]  =useState(false)
             }
           >
         <Route index element={<PrivateRoute> <Home  darkMode={darkMode} setDarkMode={setDarkMode} setShowModal={setShowModal} /></PrivateRoute>} /> 
+        <Route path='/edit/:id' element={<PrivateRoute> <Home  darkMode={darkMode} setDarkMode={setDarkMode} setShowModal={setShowModal} /></PrivateRoute>} /> 
         </Route>
       </Routes>
 <ToastContainer
