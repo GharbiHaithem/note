@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 });
 
 app.use(cors({
-    origin: 'http://localhost:5173', // Remplacez ceci par l'URL de votre client React
+    origin: 'https://note-three-kappa.vercel.app', // Remplacez ceci par l'URL de votre client React
     credentials: true,
   }));
   
