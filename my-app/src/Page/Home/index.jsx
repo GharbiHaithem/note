@@ -13,11 +13,12 @@ import { FiEdit } from 'react-icons/fi';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-
+import '../../../node_modules/video-react/dist/video-react.css'
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import { useNavigate } from 'react-router-dom';
 import ReactQuill from 'react-quill';
-
+import Container from '@mui/material/Container';
+import { ControlBar, Player, VolumeMenuButton } from 'video-react';
 const Home = ({ darkMode }) => {
   const dispatch = useDispatch();
   const { recettes, totalRecords, isLoading } = useSelector((state) => state?.recette);
@@ -67,7 +68,7 @@ const Home = ({ darkMode }) => {
     description,
     title
   }
-  alert(JSON.stringify(description))
+
   dispatch(editRecette(data))
   setTimeout(()=>{
     setEdit({id:''})
@@ -120,28 +121,44 @@ const Home = ({ darkMode }) => {
                 </div>
    
                 <Swiper
-                  spaceBetween={30}
-                  centeredSlides={true}
-                  autoplay={{
-                    delay: 2500,
-                    disableOnInteraction: false,
-                  }}
-                  pagination={{
-                    clickable: true,
-                  }}
-                  navigation={true}
-                  modules={[Autoplay, Pagination, Navigation]}
-                  className="mySwiper"
-                  nested={true}
-                >
-                  {r?.images?.map((_img) => (
-                    <SwiperSlide key={_img?.public_id}>
-                      <img src={_img?.url} className='object-cover' alt={_img?.public_id} />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
+  spaceBetween={30}
+  centeredSlides={true}
+  autoplay={{
+    delay: 2500,
+    disableOnInteraction: false,
+  }}
+  pagination={{
+    clickable: true,
+  }}
+  navigation={true}
+  modules={[Autoplay, Pagination, Navigation]}
+  className="mySwiper"
+  nested={true}
+>
+  {r?.images?.map((_img) => (
+    <SwiperSlide key={_img?.public_id}>
+      {_img?.url.endsWith(".jpg") || _img?.url.endsWith(".webp") ? (
+        <img src={_img?.url} className='object-cover' alt={_img?.public_id} />
+      ) : (
+        <div className='h-[100%] p-0'>
+          <Player
+         
+         playsInline
+         src={_img?.url}
+          
+       >
+         <ControlBar autoHide={false} disableDefaultControls>
+        <VolumeMenuButton />
+        <VolumeMenuButton vertical />
+      </ControlBar>
+       </Player>
+        </div>
+      )}
+    </SwiperSlide>
+  ))}
+</Swiper>
 
-                <div className='p-[10px] h-[max-content] relative parag'>
+                <div className='p-[10px] h-[max-content]  relative parag'>
                   {edit.id !== r?._id && (
                     <Typography
                       className={`txt ${darkMode ? 'text-slate-50' : 'text-dark'}`}

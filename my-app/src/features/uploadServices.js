@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const VITE_PUBLIC_URL   ="https://server-n.onrender.com"
+const VITE_PUBLIC_URL   ="https://server-n.onrender.com/api"
 const API = axios.create({baseURL:VITE_PUBLIC_URL});
 API.interceptors.request.use((req)=>{
    if(localStorage.getItem('customer')){
@@ -12,13 +12,17 @@ API.interceptors.request.use((req)=>{
 })
 const getTokenFromLocalStorage = localStorage.getItem('customer') ? JSON.parse(localStorage.getItem('customer')) : {}
 const uploadImages = async(data)=>{
-const response = await API.put(`${VITE_PUBLIC_URL}/api/upload/`,data,{
+    console.log("Avant API.put :", data);
+const response = await API.put(`${VITE_PUBLIC_URL}/upload/`,data,{
     headers:{
         Authorization:`Bearer ${getTokenFromLocalStorage.token}`,
-        Accept:"application/json"
+        
+        Accept: "application/json",
+      
+        'Content-Type': 'multipart/form-data',
     }
 })
-console.log(data)
+console.log("Après API.put :", response.data);
 return response.data
 } 
 
@@ -26,8 +30,8 @@ return response.data
 
 
 const deleteImages = async(id)=>{
-const response = await API.delete(`${VITE_PUBLIC_URL}/api/delete-img/${id}`)
-console.log(response)
+const response = await API.delete(`${VITE_PUBLIC_URL}/delete-img/${id}`)
+console.log(id)
 return response.data
 }
 const uploadServices = {

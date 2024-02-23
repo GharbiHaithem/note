@@ -6,9 +6,11 @@ import {useFormik} from "formik"
 import { useDispatch } from 'react-redux';
 import { registreCat } from '../../features/categorySlice';
 
+
 const ModalAddCategory = ({darkMode,setShowModalCat,showModalCat}) => {
     const dispatch = useDispatch()
- 
+    
+
    
     let categorySchema = yup.object().shape({
       
@@ -22,15 +24,15 @@ const ModalAddCategory = ({darkMode,setShowModalCat,showModalCat}) => {
       validationSchema:categorySchema,
        onSubmit:(values)=>{
       
-        
+       
          dispatch(registreCat(values))
           formik.resetForm();
         setTimeout(()=>{
             setShowModalCat(!showModalCat)
-        },1000)
+        },1000)}
        
          
-       }
+       
      })
   return (
     <div className=' fixed top-[100px] left-0 bg-[#4e4b4b88] w-[100%] h-[100%] backdrop-blur-[5px] z-50'>

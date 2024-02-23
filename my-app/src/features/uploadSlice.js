@@ -9,11 +9,18 @@ const initialState = {
     message:''
 }
 export const upload = createAsyncThunk('/upload', async(data,thunkAPI)=>{
+    console.log(data)
     try{
         const formData =new FormData()
-        for(let i =0 ; i<data.length ;i++){
-            formData.append('images',data[i])
+        
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].size > 0) {
+                formData.append('images', data[i]);
+            } else {
+                console.warn("Fichier vide détecté :", data[i]);
+            }
         }
+        console.log("Contenu de formData avant l'envoi :", formData);
         return await uploadServices.uploadImages(formData)
     }catch(err){
         return thunkAPI.rejectWithValue(err)
@@ -136,12 +143,14 @@ export const uploadSlice = createSlice({
             state.isLoading = true
         })
         .addCase(deleteImg.fulfilled,(state,action)=>{
+            console.log(action.payload.deletedImgInfo.public_id);
             state.isLoading = false
             console.log(action.payload)
             state.isSuccess=true
-            state.images=[]
+            state.images = state.images.filter(image => image.public_id !== action.payload.deletedImgInfo.public_id);
         })
         .addCase(deleteImg.rejected,(state,action)=>{
+            console.log(action.payload);
             state.isLoading=false
             state.isSuccess=false
             state.isError=true

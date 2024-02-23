@@ -223,8 +223,8 @@ export const authSlice = createSlice({
         state.isLoading=false
         state.isSuccess=false
         state.isError=true
-        state.message = action.payload
-        toast.error(action.payload.response)
+        state.message = action.payload.response.data.message
+        toast.error(action.payload.response.data.message)
         state.isLogin=false
         state.user=null
        })

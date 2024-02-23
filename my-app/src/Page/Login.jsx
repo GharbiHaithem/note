@@ -28,7 +28,7 @@ const Login = () => {
        validationSchema:signupSchema,
         onSubmit:(values)=>{
        
-          alert(JSON.stringify(values,null,2))
+      
           dispatch(loginUser(values))
            formik.resetForm();
       
@@ -58,7 +58,7 @@ const Login = () => {
      
       <div className='mb-4 flex flex-col'>
        
-        <input type="email" onChange={formik.handleChange('email')} value={formik.values.email} required id="small-input" placeholder='Email ...' className="focus:outline-none border-b border-blue-700 w-[300px] p-2 text-gray-900 bg-transparent bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+        <input type="email" onChange={formik.handleChange('email')} value={formik.values.email}  id="small-input" placeholder='Email ...' className="focus:outline-none border-b border-blue-700 w-[300px] p-2 text-gray-900 bg-transparent bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
         {formik.touched.email && formik.errors.email && <span className="mt-2 p-[10px] inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">{formik.errors.email}</span>}
       </div>
     
