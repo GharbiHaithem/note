@@ -9,24 +9,27 @@ const multerStorage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
       const suffixUnique = Date.now() + '-' + Math.round(Math.random()) * 1e9;
-      cb(null, file.fieldname + '-' + suffixUnique + '.jpg');
+      const fileExtension = path.extname(file.originalname).toLowerCase();
+      cb(null, file.fieldname + '-' + suffixUnique + fileExtension);
     },
   });
-const multerFilter=(req,file,cb)=>{
-if(file.mimetype.startsWith('image')){
-    cb(null,true)
-}else{
-    cb({
-        message:"unsupported file format"
-    })
-}
-}
-
-const uploadPhoto = multer({
-    storage:multerStorage,
-    fileFilter:multerFilter,
-   
-})
+  const multerFilter = (req, file, cb) => {
+    const allowedFileTypes = ['image/jpeg', 'image/png', 'video/mp4', 'video/quicktime'];
+    
+    if (allowedFileTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb({
+        message: 'Format de fichier non pris en charge',
+      });
+    }
+  };
+  
+  const uploadPhoto = multer({
+    storage: multerStorage,
+    fileFilter: multerFilter,
+  });
+  
 
 
 module.exports = {uploadPhoto}

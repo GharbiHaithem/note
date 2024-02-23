@@ -25,7 +25,7 @@ const uploadImageCtrl = {
   
     try {
       const deletedImgInfo = await cloudinarDeleteImg(id);
-      res.json({ deletedImgInfo });
+      res.json({ deletedImgInfo,public_id:id });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
